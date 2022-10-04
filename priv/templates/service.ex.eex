@@ -44,7 +44,7 @@ defmodule <%= mod_name %>Client do
   def start_link(opts) do
     url                         = opts[:url] || raise ArgumentError, "#{__MODULE__} requires a `:url` option"
     content_type                = opts[:content_type] || :proto
-    full_path                   = Path.join([url, "twirp", "#{@package}.#{@service}"])
+    full_path                   = Path.join([url, opts[:twirp_base_path] || "twirp", "#{@package}.#{@service}"])
     interceptors                = opts[:interceptors] || []
     {adapter_mod, adapter_opts} = opts[:adapter] || {Twirp.Client.Finch, pools: %{default: [size: 10, count: 1]}}
     http_opts = %{
